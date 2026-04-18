@@ -1,33 +1,35 @@
-# Reconocimiento de Emociones con CNN Ligera
+# 🎭 EmotionAI-Lite: High-Efficiency CNN for Facial Expression Recognition
 
-Este proyecto implementa una red neuronal convolucional ligera (Light CNN) para reconocer emociones faciales a partir de imágenes en escala de grises utilizando el conjunto de datos FER-2013.
+**EmotionAI-Lite** is a streamlined Deep Learning solution designed to classify human emotions from facial imagery. Built on the **FER-2013 dataset**, this project implements a **Lightweight Convolutional Neural Network (Light-CNN)** architecture, optimizing the balance between predictive accuracy and computational efficiency.
 
-## Descripción
+---
 
-- Las imágenes están representadas como arrays de 48x48 píxeles en escala de grises.
-- Se convierten los datos de texto a arrays NumPy y se normalizan los valores de píxeles.
-- Las etiquetas se codifican en formato one-hot para clasificación multiclase (7 emociones).
-- El dataset se divide en conjuntos de entrenamiento, validación y prueba según el campo `Usage`.
+## 🔬 Architectural Design
 
-## Arquitectura del Modelo
+The core of this project is a custom-engineered Light-CNN optimized for 48x48 grayscale inputs. Unlike bloated models, **EmotionAI-Lite** focuses on feature extraction through:
 
-La red CNN está compuesta por:
+* **Optimized Convolutional Blocks:** Three stages of Convolutions with **Batch Normalization** to stabilize learning and accelerate convergence.
+* **Dimensionality Reduction:** Strategic use of **Max Pooling** and **Global Average Pooling (GAP)** to minimize parameters and prevent overfitting.
+* **Regularization:** Integrated **Dropout** layers to ensure robust generalization across the 7 emotion categories (Angry, Disgust, Fear, Happy, Sad, Surprise, Neutral).
 
-- Tres capas convolucionales con activación ReLU, normalización por lotes y max pooling.
-- Global Average Pooling seguida de una capa Dropout.
-- Capa densa de salida con activación softmax para clasificar las 7 emociones.
+---
 
-## Entrenamiento
+## 🛠️ Technical Stack & Pipeline
 
-- Optimización con `Adam` y función de pérdida `categorical_crossentropy`.
-- Entrenamiento por 50 épocas con batch size de 128.
-- Uso de callbacks:
-  - `EarlyStopping` para evitar sobreajuste.
-  - `ModelCheckpoint` para guardar el mejor modelo como `best_fer_lightcnn.h5`.
+| Stage | Process |
+| :--- | :--- |
+| **Framework** | TensorFlow / Keras |
+| **Data Handling** | NumPy & Pandas (One-Hot Encoding & Normalization) |
+| **Optimization** | Adam Optimizer |
+| **Loss Function** | Categorical Crossentropy |
+| **Metrics** | Precision, Recall, and Accuracy |
 
-## Requisitos
+---
 
-Instalación de dependencias necesarias:
+## 🚀 Training & Optimization Strategy
 
-```bash
-pip install numpy pandas tensorflow scikit-learn
+To achieve a production-ready model, the pipeline utilizes advanced training callbacks:
+
+* **EarlyStopping:** Monitored validation loss to halt training at the optimal peak, preventing over-optimization.
+* **ModelCheckpoint:** Automatically serializes the best performing weights as `best_fer_lightcnn.h5`.
+* **Data Partitioning:** Strict separation of Training, Validation, and Test sets based on the original `Usage` metadata to ensure unbiased evaluation.
